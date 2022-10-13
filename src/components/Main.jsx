@@ -1,16 +1,12 @@
 import React from "react";
+import Navbar from "./Navbar"
 
 const Main = () => {
-  return (
-    <div id="main">
-    <div id="navbar">
-      <div>Contact List</div>
+  return <div id="main">
+<Navbar />
+      <h1>i am Main</h1>
     </div>
-    <div id="container">
-      {/* your components here */}
-    </div>
-  </div>
-  );
+ 
 };
 
 export default Main;
