@@ -2,13 +2,26 @@ import React from "react";
 import Navbar from "./Navbar"
 import { Footer,Home } from "./";
 
+<Navbar />
+<Home/>
+<Footer/>
+
 const Main = () => {
-  return <div id="main">
-      <Navbar />
-      <Home/>
-      <Footer/>
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={}
+  )
+)
+
+
+
+
+  return ( 
+  <div id="main">
+      <RouterProvider router={router}></RouterProvider>
     </div>
- 
+  );
 };
 
 export default Main;
