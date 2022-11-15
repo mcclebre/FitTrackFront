@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar"
-import { Footer } from "./";
+import { Footer,Home } from "./";
 
 const Main = () => {
   return <div id="main">
-<Navbar />
-      <h1>i am Main</h1>
+      <Navbar />
+      <Home/>
       <Footer/>
     </div>
  
