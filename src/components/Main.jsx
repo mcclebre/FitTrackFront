@@ -1,18 +1,37 @@
 import React from "react";
 import Navbar from "./Navbar"
-import { Footer,Home } from "./";
+import { 
+  Footer,
+  Home,
+  Routines,
+  Activities,
+  Login,
+  SignUp,
+  UserRoutines } from "./";
 
-<Navbar />
-<Home/>
-<Footer/>
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
+
+
 
 const Main = () => {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={}
+    <Route path="/" element={<Navbar />}>
+      <Route path="Home" element={<Home/>}></Route>
+      <Route path="Routines" element={<Routines/>}></Route>
+      <Route path="Activities" element={<Activities/>}></Route>
+      <Route path="Login" element={<Login/>}></Route>
+      <Route path="SignUp" element={<SignUp/>}></Route>
+      <Route path="UserRoutines" element={<UserRoutines/>}></Route>
+    </Route>
   )
-)
+);
 
 
 
@@ -20,7 +39,10 @@ const router = createBrowserRouter(
   return ( 
   <div id="main">
       <RouterProvider router={router}></RouterProvider>
-    </div>
+      <Footer/> 
+   </div>
+    
+    
   );
 };
 
