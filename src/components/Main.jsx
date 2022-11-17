@@ -42,7 +42,7 @@ const Main = () => {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Navbar />}>
+    <Route path="/" element={<Navbar setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} isLoggedIn={isLoggedIn}/>}>
       <Route path="Home" element={<Home/>} />
       <Route path="Routines" element={<Routines/>} />
       <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>

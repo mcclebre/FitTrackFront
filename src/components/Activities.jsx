@@ -28,16 +28,18 @@ const Activities = (props) =>{
         if (id === "description"){
             setDescription(value)   
         }  
+        
     }
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const makeNewActivity = await newActivity(name,description)
-
+       
+        const makeNewActivity = await newActivity(name,description)    
+        
         if (makeNewActivity.name){
-        setGetActivity([...getActivity,makeNewActivity])
+         setGetActivity([...getActivity,makeNewActivity])
         }
 
         navigate("/Activities")
