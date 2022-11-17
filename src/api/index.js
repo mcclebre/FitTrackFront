@@ -22,3 +22,34 @@ export const SignUpUser = async (username,password) => {
 
     return result
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function getRoutines(){
+    const response = await fetch(`${BASE_URL}/api/routines`);
+    const result = await response.json();
+    const routines = result
+    return routines;
+}
