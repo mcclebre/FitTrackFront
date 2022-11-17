@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import Navbar from "./Navbar"
 
 import { 
@@ -21,16 +21,34 @@ import {
 
 
 const Main = () => {
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
+  const [currentUser,setCurrentUser] = useState(false)
+
+  const getCurrentUser = async () => {
+    if (isLoggedIn){
+      const currentUserData = await currentUserInfo(isLoggedIn)
+      setCurrentUser(currentUserData)
+    }
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('token')
+    if (loggedInUser){
+      setIsLoggedIn(loggedInUser)
+      getCurrentUser()
+    }
+  },[isLoggedIn])  
+
+  }
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Navbar />}>
-      <Route path="Home" element={<Home/>}></Route>
-      <Route path="Routines" element={<Routines/>}></Route>
-      <Route path="Activities" element={<Activities/>}></Route>
-      <Route path="Login" element={<Login/>}></Route>
-      <Route path="SignUp" element={<SignUp/>}></Route>
-      <Route path="UserRoutines" element={<UserRoutines/>}></Route>
+      <Route path="Home" element={<Home/>} />
+      <Route path="Routines" element={<Routines/>} />
+      <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>
+      <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
+      <Route path="SignUp" element={<SignUp/>}/>
+      <Route path="UserRoutines" element={<UserRoutines/>}/>
     </Route>
   )
 );

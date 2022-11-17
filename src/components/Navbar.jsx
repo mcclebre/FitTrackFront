@@ -13,7 +13,7 @@ const Navbar = () => {
           <Link to="Routines">
           <button>Routines</button>
           </Link>
-          <Link to="Activities">
+          <Link to="/Activities">
           <button>Activities</button>
           </Link>
          </div>
@@ -21,7 +21,7 @@ const Navbar = () => {
           <Link to="Login">
           <button>LOGIN</button>
           </Link>
-          <Link to="Sign">
+          <Link to="SignUp">
           <button>SIGN UP</button>
           </Link>
          </div>
