@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getRoutines } from "../api";
+import { Link } from "react-router-dom";
 
 const Routines = (props) => {
     
     const [routines, setAllRoutines] = useState([]);
-    // const user = localStorage.getItem(token)
-    const publicRoutines = routines.isPublic 
-    console.log(publicRoutines, "public")
+    
+    const routineData = props.routineData
 
     useEffect(() => {
         async function fetchRoutines() {
@@ -19,23 +19,39 @@ const Routines = (props) => {
     }, []);
 
      
-    console.log(routines)
+    
     return (
     <div> 
          <div className="routinesContainer">
 
-            {routines.isPublic}
+            
+        
+            {routines.goal}
+          {routines.activities} 
 
             
-            {routines.isPublic ? (
-                filterRoutines().map((routine) => {
+            {routines.length ? (
+                routines.map((routine) => {
                     return ( 
-                    <div >{routine.name}</div>
+                    <div key={`routine-${routine.id}`}>
+                        <div id="allTitle">
+                            <h3>{routine.name}</h3>
+                        </div>
+                        <div id="creatorName">
+                            <>{routine.creatorName}</>
+                        </div>
+                        <div id="goals">{"Goal: " + routine.goal}</div>
+                        <Link to={`/RoutineActivities/${routine.id}`}>
+                            <button id="detailButton">See Activities
+                            </button>    
+                        </Link>
+                        
+                    </div>
                     );
                 })
             ) : (
                 <div>
-                    Log in to see private routines...
+                    Take some time to eat a donut...
                 </div>
             )}
 
