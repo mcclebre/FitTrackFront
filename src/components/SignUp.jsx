@@ -4,7 +4,7 @@ import { SignUpUser } from '../api';
 
 
 const SignUp = () => {
-
+const navigate = useNavigate();
 const [username,setUsername] = useState('')
 const [password,setPassword] = useState('')
 const [confirmPassword,setConfirmPassword] = useState('')
@@ -36,6 +36,7 @@ const handleSubmit = async (event) => {
         const token = newUser.token
         localStorage.removeItem('token')
         localStorage.setItem('token',token)
+        navigate("/Home")
     } else {
         alert("Passwords do not match!")
     }

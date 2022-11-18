@@ -22,7 +22,8 @@ import {
 } from "react-router-dom";
 
 const Main = () => {
-
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
+  const [currentUser,setCurrentUser] = useState(false)
   const [routineData, setRoutineData] = useState([]);
 
   const router = createBrowserRouter(
@@ -50,8 +51,7 @@ const Main = () => {
     )
   );
 
-  const [isLoggedIn,setIsLoggedIn] = useState(false)
-  const [currentUser,setCurrentUser] = useState(false)
+  
 
   const getCurrentUser = async () => {
     if (isLoggedIn){
