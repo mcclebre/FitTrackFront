@@ -136,3 +136,29 @@ export const editActivity = async (activityId, name, description) => {
 
 
 }
+
+export const newRoutine = async (name,goal) => {
+    const options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },body: JSON.stringify({
+            name,
+            goal
+        })
+    }
+    console.log("name", name)
+    console.log("goal", goal)
+
+
+    const response = await fetch(`${BASE_URL}/api/routines`,options)
+    const result = await response.json()
+    console.log(result, "result")
+    
+
+    if (result.error)
+        console.log('Error posting new routine')
+
+    return result    
+}

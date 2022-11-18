@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 const Routines = (props) => {
     
     const [routines, setAllRoutines] = useState([]);
+    const [newRoutine, setNewRoutine] = useState([]);
+    const [name, setName] = useState('');
+    const [goal, setGoal] = useState('');
     
-    const routineData = props.routineData
 
     useEffect(() => {
         async function fetchRoutines() {
@@ -17,6 +19,18 @@ const Routines = (props) => {
         }
         fetchRoutines();
     }, []);
+
+    const handleInputChange = (input) => {
+        const {id, value} = input.target;
+
+        if(name === id){
+        setName(value);
+        } 
+        
+        if(goal === id){
+        setGoal(value);
+        }
+    }
 
      
     

@@ -22,6 +22,7 @@ import {
 } from "react-router-dom";
 
 const Main = () => {
+  const loggedIn = window.localStorage.getItem("isLoggedIn")
   const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [currentUser,setCurrentUser] = useState(false)
   const [routineData, setRoutineData] = useState([]);
