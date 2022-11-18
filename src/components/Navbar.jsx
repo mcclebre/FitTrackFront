@@ -1,7 +1,17 @@
 import React from "react";
-import { Link, Outlet} from "react-router-dom";
+import { Link, Outlet, useNavigate} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    props.setIsLoggedIn(false)
+    props.setCurrentUser(false)
+
+
+    navigate('/Home')
+}
   return (
     <>
       <div id="navbar">
@@ -13,18 +23,25 @@ const Navbar = () => {
           <Link to="Routines">
           <button>Routines</button>
           </Link>
-          <Link to="Activities">
+          <Link to="/Activities">
           <button>Activities</button>
           </Link>
          </div>
+         {props.isLoggedIn ? 
          <div className="userLinks">
+         <Link to="UserRoutines">
+         <button>My routines</button>
+         </Link>
+         <button onClick={handleLogout}>Logout</button>
+        </div> : 
+          <div className="userLinks">
           <Link to="Login">
-          <button>LOGIN</button>
+          <button>Login</button>
           </Link>
-          <Link to="Sign">
-          <button>SIGN UP</button>
+          <Link to="SignUp">
+          <button>Sign up</button>
           </Link>
-         </div>
+         </div>}
     </div>
     <Outlet />
   </>

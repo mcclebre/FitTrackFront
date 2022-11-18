@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
+
+import React, { useState, useEffect} from "react";
+import Navbar from "./Navbar"
+
 
 import {
   Footer,
@@ -20,11 +22,12 @@ import {
 } from "react-router-dom";
 
 const Main = () => {
+
   const [routineData, setRoutineData] = useState([]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Navbar />}>
+      <Route path="/" element={<Navbar setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} isLoggedIn={isLoggedIn}/>}>
         <Route path="Home" element={<Home />}></Route>
         <Route
           path="Routines"
@@ -39,15 +42,34 @@ const Main = () => {
           path="RoutineActivities/:id"
           element={<RoutineActivities routineData={routineData} />}
         ></Route>
-        <Route path="Activities" element={<Activities />}></Route>
-        <Route path="Login" element={<Login />}></Route>
+        <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>
+        <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
         <Route path="SignUp" element={<SignUp />}></Route>
         <Route path="UserRoutines" element={<UserRoutines />}></Route>
       </Route>
     )
   );
 
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
+  const [currentUser,setCurrentUser] = useState(false)
+
+  const getCurrentUser = async () => {
+    if (isLoggedIn){
+      const currentUserData = await currentUserInfo(isLoggedIn)
+      setCurrentUser(currentUserData)
+    }
+
   useEffect(() => {
+    const loggedInUser = localStorage.getItem('token')
+    if (loggedInUser){
+      setIsLoggedIn(loggedInUser)
+      getCurrentUser()
+    }
+  },[isLoggedIn])  
+
+  }
+
+useEffect(() => {
     async function getRoutineData() {
       const response = await fetch(
         "https://fitnesstrac-kr.herokuapp.com/api/routines"
