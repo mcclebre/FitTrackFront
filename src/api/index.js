@@ -31,6 +31,8 @@ export async function getRoutines(){
     const routines = result;
     
     return routines;
+
+}
     
 
 export const LoginUser = async (username,password) => {
