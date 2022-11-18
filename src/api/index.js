@@ -24,6 +24,15 @@ export const SignUpUser = async (username,password) => {
     return result
 }
 
+
+export async function getRoutines(){
+    const response = await fetch(`${BASE_URL}/api/routines`);
+    const result = await response.json();
+    const routines = result;
+    
+    return routines;
+    
+
 export const LoginUser = async (username,password) => {
     const options = {
         method: "POST",
@@ -122,5 +131,6 @@ export const editActivity = async (activityId, name, description) => {
     }
 
     return result
+
 
 }
