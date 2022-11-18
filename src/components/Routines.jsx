@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getRoutines } from "../api";
-import { Link } from "react-router-dom";
+import { getRoutines, newRoutine } from "../api";
+import { Link, useNavigate } from "react-router-dom";
 
 const Routines = (props) => {
     
     const [routines, setAllRoutines] = useState([]);
-    const [newRoutine, setNewRoutine] = useState([]);
+    const [getRoutine, setGetRoutine] = useState([]);
     const [name, setName] = useState('');
     const [goal, setGoal] = useState('');
+    const navigate = useNavigate();
     
 
     useEffect(() => {
@@ -32,9 +33,37 @@ const Routines = (props) => {
         }
     }
 
+    const handleSubmit = async (input) => {
+        input.preventDefault();
+
+        const makeNewRoutine = await newRoutine(name, goal);
+
+        if(makeNewRoutine.name){
+            setGetRoutine([...getRoutine, makeNewRoutine])
+        }
+
+        navigate('/Routines')
+    }
+
      
     
-    return (
+    return ( <div className="routinesPage">
+    {props.isLoggedIn ? 
+     <div className="newRoutine">
+        <div className="newRoutineForm">
+        <form className="submissionForm">
+            <h4>Make a new Routine</h4>
+            <label htmlFor="name">Name: </label>
+            <input id="name" type='text' onChange = {(input) => handleInputChange(input)} required />
+            <label htmlFor="goal">Goal: </label>
+            <input id="goal" type='text'  onChange = {(input) => handleInputChange(input)} required />
+        </form>
+            <button className="createRoutineButton" onClick={(event) => handleSubmit(event)}>Create Routine</button>                      
+       </div>
+    </div>    
+       : <></> }  
+        
+
     <div> 
          <div className="routinesContainer">
 
@@ -71,7 +100,7 @@ const Routines = (props) => {
 
         </div>
     </div>
-    );
+   </div> );
 };
 
 export default Routines;

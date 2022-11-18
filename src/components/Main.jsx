@@ -22,7 +22,7 @@ import {
 } from "react-router-dom";
 
 const Main = () => {
-  const loggedIn = window.localStorage.getItem("isLoggedIn")
+  
   const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [currentUser,setCurrentUser] = useState(false)
   const [routineData, setRoutineData] = useState([]);
@@ -35,6 +35,7 @@ const Main = () => {
           path="Routines"
           element={
             <Routines
+              isLoggedIn={isLoggedIn}
               setRoutineData={setRoutineData}
               routineData={routineData}
             />
@@ -42,7 +43,9 @@ const Main = () => {
         ></Route>
         <Route
           path="RoutineActivities/:id"
-          element={<RoutineActivities routineData={routineData} />}
+          element={<RoutineActivities 
+            isLoggedIn={isLoggedIn}
+            routineData={routineData} />}
         ></Route>
         <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>
         <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>

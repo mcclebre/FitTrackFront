@@ -26,7 +26,12 @@ export const SignUpUser = async (username,password) => {
 
 
 export async function getRoutines(){
-    const response = await fetch(`${BASE_URL}/api/routines`);
+    const options = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const response = await fetch(`${BASE_URL}/api/routines`,options);
     const result = await response.json();
     const routines = result;
     
