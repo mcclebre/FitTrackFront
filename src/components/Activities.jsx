@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchActivities, newActivity } from "../api";
+import EditActivity from "./EditActivity";
 
 const Activities = (props) =>{
     const navigate = useNavigate()
     const [getActivity, setGetActivity] = useState([])
     const [name, setName] = useState('')
     const [description,setDescription] = useState('')
+    const [singleActivity,setSingleActivity] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,8 +67,10 @@ const Activities = (props) =>{
             <div className="ActivityDisplay">
                 {getActivity.length ? getActivity.map((activity) => {
                     return(<div className="singleActivity" key={`activity-${activity.id}`}>
-                            <h3>${activity.name}</h3>
+                            <h3>{activity.name}</h3>
                             <p><b>Description:</b> {activity.description}</p>
+                            {props.isLoggedIn ?
+                            <Link to={`/EditActivity/${activity.id}`}>Edit</Link> : <></>}
                         </div>)
                 }): <div> Loading Activities...</div>}</div>
             </div>)

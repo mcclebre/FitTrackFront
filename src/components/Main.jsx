@@ -12,6 +12,7 @@ import {
   Login,
   SignUp,
   UserRoutines,
+  EditActivity
 } from "./";
 
 import {
@@ -21,37 +22,12 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+import { currentUserInfo } from "../api";
+
 const Main = () => {
   const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [currentUser,setCurrentUser] = useState(false)
   const [routineData, setRoutineData] = useState([]);
-
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Navbar setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} isLoggedIn={isLoggedIn}/>}>
-        <Route path="Home" element={<Home />}></Route>
-        <Route
-          path="Routines"
-          element={
-            <Routines
-              setRoutineData={setRoutineData}
-              routineData={routineData}
-            />
-          }
-        ></Route>
-        <Route
-          path="RoutineActivities/:id"
-          element={<RoutineActivities routineData={routineData} />}
-        ></Route>
-        <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>
-        <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
-        <Route path="SignUp" element={<SignUp />}></Route>
-        <Route path="UserRoutines" element={<UserRoutines />}></Route>
-      </Route>
-    )
-  );
-
-  
 
   const getCurrentUser = async () => {
     if (isLoggedIn){
@@ -68,7 +44,7 @@ const Main = () => {
   },[isLoggedIn])  
 
   }
-
+  
 useEffect(() => {
     async function getRoutineData() {
       const response = await fetch(
@@ -80,6 +56,35 @@ useEffect(() => {
     }
     getRoutineData();
   }, []);
+
+
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Navbar setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser} isLoggedIn={isLoggedIn}/>}>
+        <Route path="Home" element={<Home isLoggedIn={isLoggedIn} setCurrentUser={setCurrentUser}/>}></Route>
+        <Route
+          path="Routines"
+          element={
+            <Routines
+              isLoggedIn={isLoggedIn}
+              setRoutineData={setRoutineData}
+              routineData={routineData}
+            />
+          }
+        ></Route>
+        <Route
+          path="RoutineActivities/:id"
+          element={<RoutineActivities  isLoggedIn={isLoggedIn} routineData={routineData} />}
+        ></Route>
+        <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>} />
+        <Route path="EditActivity/:activityId" element={<EditActivity isLoggedIn={isLoggedIn}/>}/>
+        <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
+        <Route path="SignUp" element={<SignUp />}></Route>
+        <Route path="UserRoutines" element={<UserRoutines currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+      </Route>
+    )
+  );
 
   return (
     <div id="main">
