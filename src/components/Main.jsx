@@ -50,7 +50,10 @@ const Main = () => {
         <Route path="Activities" element={<Activities isLoggedIn={isLoggedIn}/>}/>
         <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
         <Route path="SignUp" element={<SignUp />}></Route>
-        <Route path="UserRoutines" element={<UserRoutines />}></Route>
+        <Route path="UserRoutines" element={<UserRoutines
+             isLoggedIn={isLoggedIn}
+              setRoutineData={setRoutineData}
+              routineData={routineData}/>}></Route>
       </Route>
     )
   );

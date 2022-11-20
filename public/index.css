@@ -19,7 +19,7 @@ body {
 
 footer{
   padding: 2em;
-  position: fixed;
+  position: bottom;
   left: 0;
   right: 0;
   bottom: 0;
