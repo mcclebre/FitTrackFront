@@ -7,5 +7,6 @@ export {default as Routines} from './Routines'
 export {default as SignUp} from './SignUp'
 export {default as UserRoutines} from './UserRoutines'
 export {default as Activities} from './Activities'
+export {default as EditActivity} from './EditActivity'
 export {default as RoutineActivities} from './RoutineActivities'
 
