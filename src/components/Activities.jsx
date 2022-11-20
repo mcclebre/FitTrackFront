@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchActivities, newActivity } from "../api";
 import EditActivity from "./EditActivity";
 
+
 const Activities = (props) =>{
     const navigate = useNavigate()
     const [getActivity, setGetActivity] = useState([])
@@ -10,56 +11,64 @@ const Activities = (props) =>{
     const [description,setDescription] = useState('')
     const [singleActivity,setSingleActivity] = useState('')
 
-    useEffect(() => {
-        const fetchData = async () => {
-           const  data = await fetchActivities()
-            setGetActivity(data)
-            console.log(data)
-            return data
-        }
-        fetchData();      
-    },[])
 
-    const handleInputChange = (e) => {
-        const {id,value} = e.target
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchActivities();
+      setGetActivity(data);
+      console.log(data);
+      return data;
+    };
+    fetchData();
+  }, []);
 
-        if (id === "name"){
-        setName(value)
-        }
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
 
-        if (id === "description"){
-            setDescription(value)   
-        }  
-        
+    if (id === "name") {
+      setName(value);
     }
 
+    if (id === "description") {
+      setDescription(value);
+    }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-       
-        const makeNewActivity = await newActivity(name,description)    
-        
-        if (makeNewActivity.name){
-         setGetActivity([...getActivity,makeNewActivity])
-        }
+    const makeNewActivity = await newActivity(name, description);
 
-        navigate("/Activities")
+    if (makeNewActivity.name) {
+      setGetActivity([...getActivity, makeNewActivity]);
     }
 
+    navigate("/Activities");
+  };
 
-
-    return (<div className="activitiesPage">
-        {props.isLoggedIn ? 
-         <div className="NewActivity">
-            <div className="NewActivityForm">
+  return (
+    <div className="activitiesPage">
+      {props.isLoggedIn ? (
+        <div className="NewActivity">
+          <div className="NewActivityForm">
             <form className="submissionForm">
-                <h3>Make a New Activity</h3>
-                <label htmlFor="name">Name: </label>
-                <input id="name" type='text' onChange = {(e) => handleInputChange(e)} required />
-                <label htmlFor="description">Description: </label>
-                <input id="description" type='text'  onChange = {(e) => handleInputChange(e)} required />
+              <h2>Make a new Activity</h2>
+              <label htmlFor="name">Name: </label>
+              <input
+                id="name"
+                type="text"
+                onChange={(e) => handleInputChange(e)}
+                required
+              />
+              <label htmlFor="description">Description: </label>
+              <input
+                id="description"
+                type="text"
+                onChange={(e) => handleInputChange(e)}
+                required
+              />
             </form>
+
                 <button className="createActivityBtn" onClick={(event) => handleSubmit(event)}>Create Activity</button>                      
            </div>
         </div>    
@@ -75,5 +84,6 @@ const Activities = (props) =>{
                 }): <div> Loading Activities...</div>}</div>
             </div>)
 }
+
 
 export default Activities;

@@ -28,6 +28,7 @@ const Login = (props) => {
         const token = await loggedIn.token
         localStorage.removeItem('token')
         localStorage.setItem('token',token)
+        window.localStorage.setItem("isLoggedIn", true);
         props.setIsLoggedIn(token)
         console.log(token)
     

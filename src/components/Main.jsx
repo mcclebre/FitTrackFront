@@ -25,9 +25,11 @@ import {
 import { currentUserInfo } from "../api";
 
 const Main = () => {
+  
   const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [currentUser,setCurrentUser] = useState(false)
   const [routineData, setRoutineData] = useState([]);
+
 
   const getCurrentUser = async () => {
     if (isLoggedIn){
@@ -81,7 +83,12 @@ useEffect(() => {
         <Route path="EditActivity/:activityId" element={<EditActivity isLoggedIn={isLoggedIn}/>}/>
         <Route path="Login" element={<Login setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>}/>
         <Route path="SignUp" element={<SignUp />}></Route>
-        <Route path="UserRoutines" element={<UserRoutines currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+        <Route path="UserRoutines" element={<UserRoutines  
+        isLoggedIn={isLoggedIn}
+              setRoutineData={setRoutineData}
+              routineData={routineData}
+              currentUser={currentUser} 
+              setCurrentUser={setCurrentUser}/>}></Route>
       </Route>
     )
   );
