@@ -72,7 +72,7 @@ const Activities = (props) =>{
                 <button className="createActivityBtn" onClick={(event) => handleSubmit(event)}>Create Activity</button>                      
            </div>
         </div>    
-           : <></> }            
+          ) : <></> }            
             <div className="ActivityDisplay">
                 {getActivity.length ? getActivity.map((activity) => {
                     return(<div className="singleActivity" key={`activity-${activity.id}`}>
